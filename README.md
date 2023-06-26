@@ -6,3 +6,4 @@ Esame UFS06 Cecchi Andrea Traccia C
 - http://127.0.0.1:8000/command=all
 - http://127.0.0.1:8000/command=all_sorted
 - http://127.0.0.1:8000/command=most_expensive
+- curl "http://127.0.0.1:8000" -d "/command=most_expensive"
