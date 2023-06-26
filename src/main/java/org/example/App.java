@@ -23,39 +23,41 @@ public class App
         HotelBroker.getInstance().addHotel(new Hotel(16,"hotel glaciale","hotel al polo nord",10000.0,false));
 
 
-        if (args[0].equals("http")){
-            HttpServer server = null;
-            try {
-                server = HttpServer.create(new InetSocketAddress(8000), 0);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            server.createContext("/", new MyHandler());
-            server.setExecutor(null); // creates a default executor
-            server.start();
-        }else{
-            ServerSocket serverSocket = null;
-            try {
-                serverSocket = new ServerSocket(portNumber);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Socket clientSocket = null;
-            while(true){
+        if(args.length > 0){
+            if (args[0].equals("http")){
+                HttpServer server = null;
                 try {
-                    clientSocket = serverSocket.accept();
+                    server = HttpServer.create(new InetSocketAddress(8000), 0);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                ClientHandler clientHandler = new ClientHandler(clientSocket);
-                ClientManager.getInstance().add(clientHandler);
-                Thread handler = new Thread(clientHandler);
-                handler.start();
+
+                server.createContext("/", new MyHandler());
+                server.setExecutor(null); // creates a default executor
+                server.start();
+            }else if(args[0].equals("tcp")){
+                ServerSocket serverSocket = null;
+                try {
+                    serverSocket = new ServerSocket(portNumber);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Socket clientSocket = null;
+                while(true){
+                    try {
+                        clientSocket = serverSocket.accept();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    ClientHandler clientHandler = new ClientHandler(clientSocket);
+                    ClientManager.getInstance().add(clientHandler);
+                    Thread handler = new Thread(clientHandler);
+                    handler.start();
 
 
-                //System.out.println("Server done!");
+                    //System.out.println("Server done!");
+                }
             }
         }
 
