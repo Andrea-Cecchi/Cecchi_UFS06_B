@@ -2,6 +2,7 @@ package org.example;
 
 import com.sun.net.httpserver.HttpServer;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -59,8 +60,23 @@ public class App
                     //System.out.println("Server done!");
                 }
             }
+        }else {
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    createAndShowGUI();
+                }
+            });
         }
 
 
+    }
+
+    private static void createAndShowGUI() {
+        System.out.println("Created GUI on EDT? "+
+                SwingUtilities.isEventDispatchThread());
+        JFrame f = new CustomFrame();
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setSize(500,500);
+        f.setVisible(true);
     }
 }
