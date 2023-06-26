@@ -37,12 +37,12 @@ public class HotelBroker {
         hotels.remove(newHotel);
     }
 
-    Hotel getMoreExpensive(){
+    public Hotel getMoreExpensive(){
         double max = 0.0;
         Hotel maxh = null;
         for (Hotel h:
                 hotels) {
-            if(h.getPrice() > max){
+            if(h.getPrice() > max && h.isSuite()){
                 max = h.getPrice();
                 maxh = h;
             }
@@ -53,6 +53,22 @@ public class HotelBroker {
         return maxh;
     }
 
+    public String getMoreExpensiveTCP(){
+        double max = 0.0;
+        Hotel maxh = null;
+        for (Hotel h:
+                hotels) {
+            if(h.getPrice() > max && h.isSuite()){
+                max = h.getPrice();
+                maxh = h;
+            }
+        }
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String s = gson.toJson(maxh);
+
+        return s;
+    }
+
     public List<Hotel> toJsonSorted(){
         List<Hotel> myObject = new ArrayList<>(hotels);
         myObject.sort((o1, o2) -> {
@@ -61,6 +77,16 @@ public class HotelBroker {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String s = gson.toJson(myObject);
         return myObject;
+    }
+
+    public String toJsonSortedTCP(){
+        List<Hotel> myObject = new ArrayList<>(hotels);
+        myObject.sort((o1, o2) -> {
+            return o1.getName().compareTo(o2.getName());
+        });
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String s = gson.toJson(myObject);
+        return s;
     }
 
     public String toJson() {

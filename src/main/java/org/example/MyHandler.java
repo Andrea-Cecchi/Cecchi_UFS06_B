@@ -194,10 +194,10 @@ public class MyHandler implements HttpHandler {
                     "Description" +
                     "</th>" +
                     "<th>" +
-                    "Price" +
+                    "price" +
                     "</th>" +
                     "<th>" +
-                    "Suite" +
+                    "suite" +
                     "</th>" +
                     "</tr>\n";
             for (Hotel c:
@@ -210,11 +210,12 @@ public class MyHandler implements HttpHandler {
                         c.getName() +
                         "</td>\n" +
                         "<td>" +
-                        c.getDescription()+
-                        "</td>\n" +
+                        c.getDescription() +
+                        "</td>\n"+
                         "<td>" +
-                        c.getPrice()+
-                        "</td>\n" +
+                        c.getPrice() +
+                        "</td>\n"+
+                        "<td>" +
                         c.isSuite() +
                         "</td>\n"+
                         "</tr>\n";
